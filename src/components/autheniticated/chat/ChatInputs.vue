@@ -6,7 +6,7 @@
         <FileInput :files="files" @set-file-value="(data) => files = data"/>
         <StickerInput/>
         <GifInput/>
-        <TextInputWithEmojis v-model="messagesStore.messagesInputValues[uuid as string]"/>
+        <TextInputWithEmojis v-model="messagesStore.messagesInputValues[uuid]"/>
         <VButtonIcon
             type="submit"
             :key="messageCanBeSent.toString()"
@@ -31,42 +31,42 @@ import useMessagesStore from "@/store/module/messages";
 import useUserStore from "@/store/module/user";
 import axios from "@/config/axios";
 
-const message = ref('');
 const files = ref(undefined);
 
 const router = useRoute();
 const userStore = useUserStore();
-const uuid = computed(() => router.params.uuid);
+const uuid = computed(() => router.params.uuid as string);
 const messagesStore = useMessagesStore();
 
 const submitForm = () => {
-      messagesStore.addMessage(uuid.value as string, {
-        id: 0,
-        conversation_id: uuid.value as string,
-        sender_id: userStore?.user?.id!,
-        content: message.value,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-        sender: userStore.user as User,
-        views: [],
+  messagesStore.addMessage(uuid.value, {
+    id: 0,
+    conversation_id: uuid.value,
+    sender_id: userStore?.user?.id!,
+    content: messagesStore.messagesInputValues[uuid.value],
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    sender: userStore.user as User,
+    views: [],
+  });
+
+  axios
+      .post(`conversations/${uuid.value}/messages`,
+          {content: messagesStore.messagesInputValues[uuid.value]},
+          {headers: {"X-Socket-Id": window.Echo.socketId()}})
+      .then(() => {
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+
       });
+  messagesStore.messagesInputValues[uuid.value] = ''
+  messagesStore.scrollToBottom();
+};
 
-      axios
-          .post(`conversations/${uuid.value}/messages`,
-              {content: message.value},
-              {headers: {"X-Socket-Id": window.Echo.socketId()}})
-          .then(() => {
-          })
-          .catch((error) => {
-            console.error(error);
-          })
-          .finally(() => {
-
-          });
-      message.value = '';
-      messagesStore.scrollToBottom();
-    }
-;
-
-const messageCanBeSent = computed(() => message.value.length > 0 || files.value !== undefined);
+const messageCanBeSent = computed(() => {
+  return messagesStore.messagesInputValues[uuid.value]?.length > 0 || files.value !== undefined
+});
 </script>
