@@ -6,7 +6,7 @@
         <FileInput :files="files" @set-file-value="(data) => files = data"/>
         <StickerInput/>
         <GifInput/>
-        <TextInputWithEmojis v-model="message"/>
+        <TextInputWithEmojis v-model="messagesStore.messagesInputValues[uuid as string]"/>
         <VButtonIcon
             type="submit"
             :key="messageCanBeSent.toString()"
@@ -37,10 +37,10 @@ const files = ref(undefined);
 const router = useRoute();
 const userStore = useUserStore();
 const uuid = computed(() => router.params.uuid);
-const messageStore = useMessagesStore();
+const messagesStore = useMessagesStore();
 
 const submitForm = () => {
-      messageStore.addMessage(uuid.value as string, {
+      messagesStore.addMessage(uuid.value as string, {
         id: 0,
         conversation_id: uuid.value as string,
         sender_id: userStore?.user?.id!,
@@ -64,6 +64,7 @@ const submitForm = () => {
 
           });
       message.value = '';
+      messagesStore.scrollToBottom();
     }
 ;
 

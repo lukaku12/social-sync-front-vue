@@ -59,7 +59,6 @@
       </v-card>
     </div>
   </div>
-  {{}}
 </template>
 
 <script setup lang="ts">
@@ -77,18 +76,12 @@ const userId = computed(() => userStore?.user?.id);
 
 const uuid = computed(() => route.params.uuid);
 const messages = computed(() => messagesStore.getCurrentMessages(uuid.value as string));
-const chatContentRef = ref<HTMLElement | null>(null);
+const chatContentRef = ref<HTMLElement | undefined>(undefined);
 
-const scrollToBottom = () => {
-  setTimeout(() => {
-    if (!chatContentRef.value) return;
-    chatContentRef.value.scrollTop = chatContentRef.value.scrollHeight;
-  })
-}
 
 const getMessages = () => {
 
-  scrollToBottom(); // temp
+  messagesStore.scrollToBottom(chatContentRef); // temp
 
   // only fetch messages if the conversation is not already in the store
   if (messagesStore.hasMessages(uuid.value as string)) return;
@@ -97,7 +90,7 @@ const getMessages = () => {
       .get(`conversations/${uuid.value}/messages`)
       .then((response) => {
         messagesStore.addMessages(uuid.value as string, response.data);
-        scrollToBottom();
+        messagesStore.scrollToBottom(chatContentRef);
       })
       .catch((error) => {
         console.error(error);
@@ -115,11 +108,11 @@ onMounted(() => {
           'GotMessage',
           (e: any) => {
             messagesStore.addMessage(uuid.value as string, e.message);
-            scrollToBottom();
+            messagesStore.scrollToBottom(chatContentRef);
           });
 });
 
-onUpdated(() => scrollToBottom());
+onUpdated(() => messagesStore.scrollToBottom(chatContentRef));
 watch(route, () => getMessages());
 
 // const conversationsStore = useConversationsStore();
