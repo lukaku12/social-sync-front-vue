@@ -50,7 +50,6 @@ export default {
     no_conversations_were_found: 'No conversations were found',
     you_can_search_and_find_new_conversations: 'You can search and find new conversations',
 
-
     page_to_create_new_messages: 'Page to create and view posts',
     will_be_added_later: 'Will be added later',
 
@@ -63,4 +62,4 @@ export default {
     language: 'Language',
     english: 'English',
     georgian: 'Georgian',
-}
+};

@@ -1,7 +1,7 @@
-import {defineStore} from 'pinia'
-import {Ref, ref} from "vue";
-import axios from "@/config/axios";
-import {useRouter} from "vue-router";
+import { defineStore } from 'pinia';
+import { Ref, ref } from 'vue';
+import axios from '@/config/axios';
+import { useRouter } from 'vue-router';
 
 const useUserStore = defineStore('user', () => {
     const router = useRouter();
@@ -9,19 +9,18 @@ const useUserStore = defineStore('user', () => {
     const user = ref<User | null>(null);
     const userIsLoggedIn = ref(!!localStorage.getItem('token'));
 
-
     const isFetchingUser = ref(false);
     const isLoggingOut = ref(false);
 
     async function fetchUser() {
-        console.log('fetching user')
+        console.log('fetching user');
         isFetchingUser.value = true;
         axios
             .get('user')
-            .then((res) => {
+            .then(res => {
                 user.value = res.data;
             })
-            .catch((err) => {
+            .catch(err => {
                 console.log(err);
             })
             .finally(() => {
@@ -38,9 +37,9 @@ const useUserStore = defineStore('user', () => {
                 if (dialogIsOpen) dialogIsOpen.value = false;
                 userIsLoggedIn.value = false;
                 isLoggingOut.value = false;
-                router.replace({name: 'login'});
+                router.replace({ name: 'login' });
             })
-            .catch((err) => {
+            .catch(err => {
                 console.log(err);
             })
             .finally(() => {
@@ -48,15 +47,14 @@ const useUserStore = defineStore('user', () => {
             });
     }
 
-
     return {
         user,
         fetchUser,
         logout,
         isFetchingUser,
         isLoggingOut,
-        userIsLoggedIn
-    }
-})
+        userIsLoggedIn,
+    };
+});
 
 export default useUserStore;

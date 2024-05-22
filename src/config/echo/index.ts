@@ -1,7 +1,7 @@
 import Echo from 'laravel-echo';
 
 import Pusher from 'pusher-js';
-import {getToken} from "@/config/axios";
+import { getToken } from '@/config/axios';
 
 declare global {
     interface Window {
@@ -9,7 +9,6 @@ declare global {
         Pusher: typeof Pusher;
     }
 }
-
 
 window.Pusher = Pusher;
 

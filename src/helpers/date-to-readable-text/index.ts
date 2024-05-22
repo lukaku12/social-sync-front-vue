@@ -10,21 +10,20 @@ const dateToReadableText = (date: string, locale: 'en' | 'ka') => {
     const months = Math.floor(days / 30);
     const years = Math.floor(months / 12);
 
-    if (seconds < 60) return {en: ' Just now', ka: ' ახლა'}[locale];
+    if (seconds < 60) return { en: ' Just now', ka: ' ახლა' }[locale];
 
-    if (minutes < 60) return {en: minutes + ' min', ka: minutes + ' წთ'}[locale];
+    if (minutes < 60) return { en: minutes + ' min', ka: minutes + ' წთ' }[locale];
 
-    if (hours < 24) return {en: hours + ' hour', ka: hours + ' სთ'}[locale];
+    if (hours < 24) return { en: hours + ' hour', ka: hours + ' სთ' }[locale];
 
-    if (days < 7) return {en: days + ' day', ka: days + ' დღე'}[locale];
+    if (days < 7) return { en: days + ' day', ka: days + ' დღე' }[locale];
 
-    if (weeks < 4) return {en: weeks + ' week', ka: weeks + ' კვირა'}[locale];
+    if (weeks < 4) return { en: weeks + ' week', ka: weeks + ' კვირა' }[locale];
 
-    if (months < 12) return {en: months + ' month', ka: months + ' თვე'}[locale];
+    if (months < 12) return { en: months + ' month', ka: months + ' თვე' }[locale];
 
-    if (years < 1) return {en: years + ' year', ka: years + ' წელი'}[locale];
-
-}
+    if (years < 1) return { en: years + ' year', ka: years + ' წელი' }[locale];
+};
 
 export default dateToReadableText;
 //return minutes +  ' წთის წინ';

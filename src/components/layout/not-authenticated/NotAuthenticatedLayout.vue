@@ -1,10 +1,7 @@
 <template>
-  <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-    <slot/>
-  </div>
+    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+        <slot />
+    </div>
 </template>
 
-<script setup lang="ts">
-
-
-</script>
+<script setup lang="ts"></script>

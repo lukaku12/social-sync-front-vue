@@ -11,11 +11,12 @@ export default {
 
     password_field_is_required: 'Password Field Is Required!',
     password_field_must_be_at_least_8_characters: 'Password Field Must Be At Least 8 Characters!',
-    password_field_must_be_less_than_100_characters: 'Password Field Must Be Less Than 100 Characters!',
+    password_field_must_be_less_than_100_characters:
+        'Password Field Must Be Less Than 100 Characters!',
 
     confirm_password_field_is_required: 'Confirm Password Field Is Required!',
     passwords_must_match: 'Passwords Must Match!',
-}
+};
 
 // password_must_contain_at_least_one_number: 'Password Must Contain At Least One Number!',
 // password_must_contain_at_least_one_special_character: 'Password Must Contain At Least One Special Character!',

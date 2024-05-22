@@ -50,7 +50,6 @@ export default {
 
     search_emojis: 'ემოჯის ძიება',
 
-
     page_to_create_new_messages: 'გვერდი სადაც შეძლებთ შექმნათ და დაათვალიეროთ პოსტები',
     will_be_added_later: 'ეს გვერდი მოგვიანებით დაემატება',
 
@@ -63,4 +62,4 @@ export default {
     language: 'ენა',
     english: 'ინგლისური',
     georgian: 'ქართული',
-}
+};

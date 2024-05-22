@@ -1,12 +1,12 @@
 interface User {
-    id: number,
-    name: string,
-    last_name: string,
-    email: string,
-    image: string,
-    email_verified_at: string,
-    created_at: string,
-    updated_at: string,
+    id: number;
+    name: string;
+    last_name: string;
+    email: string;
+    image: string;
+    email_verified_at: string;
+    created_at: string;
+    updated_at: string;
 }
 
 interface Conversation {
@@ -21,12 +21,12 @@ interface Conversation {
 }
 
 interface Message {
-    id: number,
-    conversation_id: string,
-    sender_id: number,
-    content: string,
-    created_at: string,
-    updated_at: string,
-    sender: User,
+    id: number;
+    conversation_id: string;
+    sender_id: number;
+    content: string;
+    created_at: string;
+    updated_at: string;
+    sender: User;
     views: [];
 }

@@ -1,6 +1,6 @@
-import {createRouter, createWebHistory} from "vue-router";
-import axiosInstance, {getToken} from "@/config/axios";
-import useUserStore from "@/store/module/user";
+import { createRouter, createWebHistory } from 'vue-router';
+import axiosInstance, { getToken } from '@/config/axios';
+import useUserStore from '@/store/module/user';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -46,15 +46,14 @@ const router = createRouter({
             path: '/:pathMatch(.*)*',
             component: () => import('@/views/extras/NotFound.vue'),
             name: 'not-found',
-        }
-    ]
-})
+        },
+    ],
+});
 
 router.beforeEach((to, from, next) => {
     const publicPages = ['/login', '/register', '/forgot-password', '/reset-password'];
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = localStorage.getItem('token');
-
 
     if (authRequired && !loggedIn) {
         return next('/login');

@@ -3,9 +3,9 @@ import authFormValidationKa from '@/validation/auth-form-validation/translations
 
 export default {
     en: {
-        ...authFormValidationEn
+        ...authFormValidationEn,
     },
     ka: {
-        ...authFormValidationKa
+        ...authFormValidationKa,
     },
-}
+};

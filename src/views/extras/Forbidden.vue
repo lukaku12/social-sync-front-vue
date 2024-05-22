@@ -1,7 +1,5 @@
 <template>
-  <h1>Forbidden</h1>
+    <h1>Forbidden</h1>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>

@@ -15,7 +15,7 @@ export default {
 
     confirm_password_field_is_required: 'დაადასტურეთ პაროლის ველი აუცილებელია!',
     passwords_must_match: 'პაროლები უნდა ემთხვეოდეს!',
-}
+};
 
 // password_must_contain_at_least_one_number: 'Password Must Contain At Least One Number!',
 // password_must_contain_at_least_one_special_character: 'Password Must Contain At Least One Special Character!',

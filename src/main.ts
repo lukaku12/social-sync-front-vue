@@ -1,11 +1,11 @@
-import {createApp} from 'vue';
+import { createApp } from 'vue';
 import '@/style.css';
 import '@/config/echo';
 import App from '@/App.vue';
-import router from "@/router";
-import vuetify from "@/config/vuetify";
-import i18n from "@/lang";
-import pinia from "@/store";
+import router from '@/router';
+import vuetify from '@/config/vuetify';
+import i18n from '@/lang';
+import pinia from '@/store';
 
 const app = createApp(App);
 

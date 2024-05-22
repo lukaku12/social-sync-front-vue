@@ -1,10 +1,9 @@
-import {Ref, ref} from "vue";
-import {defineStore} from "pinia";
+import { Ref, ref } from 'vue';
+import { defineStore } from 'pinia';
 
-type Messages = Record<string, Array<Array<Message>>>
+type Messages = Record<string, Array<Array<Message>>>;
 
 const useMessagesStore = defineStore('messages', () => {
-
     const messages = ref<Messages>({});
     const messagesInputValues = ref<Record<string, string>>({});
 
@@ -16,11 +15,11 @@ const useMessagesStore = defineStore('messages', () => {
         setTimeout(() => {
             if (!chatContentRef.value) return;
             chatContentRef.value.scrollTop = chatContentRef.value.scrollHeight;
-        })
+        });
     };
 
     const addMessages = (key: string, value: Message[]) => {
-        Object.assign(messages.value, {[key]: value})
+        Object.assign(messages.value, { [key]: value });
     };
 
     const getCurrentMessages = (uuid: string) => messages.value[uuid];
@@ -28,13 +27,12 @@ const useMessagesStore = defineStore('messages', () => {
     const hasMessages = (uuid: string) => messages.value[uuid] !== undefined;
 
     const addMessage = (uuid: string, message: Message) => {
-
         const currentMessages = messages.value[uuid];
 
         // conversation is empty
         if (currentMessages.length === 0) {
             currentMessages[0] = [message];
-            console.log(message)
+            console.log(message);
             return;
         }
 
@@ -48,8 +46,8 @@ const useMessagesStore = defineStore('messages', () => {
         } else {
             currentMessages.push([message]);
         }
-        console.log(message)
-    }
+        console.log(message);
+    };
 
     return {
         messages,
@@ -58,9 +56,8 @@ const useMessagesStore = defineStore('messages', () => {
         getCurrentMessages,
         hasMessages,
         addMessage,
-        scrollToBottom
+        scrollToBottom,
     };
 });
-
 
 export default useMessagesStore;

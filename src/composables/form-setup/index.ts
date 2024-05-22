@@ -1,10 +1,10 @@
-import {ref, watch} from 'vue'
-import {useI18n} from "vue-i18n";
-import rules from "@/validation/auth-form-validation/index.ts";
-import {formElement} from "@/composables/form-setup/types.ts";
+import { ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
+import rules from '@/validation/auth-form-validation/index.ts';
+import { formElement } from '@/composables/form-setup/types.ts';
 
 export function useFormSetup<T>(formData: T) {
-    const {t, locale} = useI18n();
+    const { t, locale } = useI18n();
     const AuthFormValidation = rules(t);
 
     const form = ref(formData);
@@ -19,23 +19,22 @@ export function useFormSetup<T>(formData: T) {
 
         const ItemsThatHaveErrors: string[] = [];
 
-        formElement?.value?.errors.forEach((error) => {
+        formElement?.value?.errors.forEach(error => {
             ItemsThatHaveErrors.push(error.id);
-        })
+        });
 
-        const itemsToValidate: { id: string, validate: () => {} }[] = [];
+        const itemsToValidate: { id: string; validate: () => {} }[] = [];
 
         ItemsThatHaveErrors.forEach(key => {
             if (!formElement?.value?.items) return;
 
-            itemsToValidate.push(formElement?.value?.items.filter((item) => item.id === key)[0])
-        })
+            itemsToValidate.push(formElement?.value?.items.filter(item => item.id === key)[0]);
+        });
 
-        itemsToValidate.forEach((item) => {
+        itemsToValidate.forEach(item => {
             item.validate();
-        })
-
-    })
+        });
+    });
 
     return {
         t,
@@ -43,6 +42,6 @@ export function useFormSetup<T>(formData: T) {
         formElement,
         loading,
         AuthFormValidation,
-        apiErrors
-    }
+        apiErrors,
+    };
 }
