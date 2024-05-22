@@ -45,17 +45,6 @@ import {computed, onUnmounted, ref} from "vue";
 import dateToReadableText from "@/helpers/date-to-readable-text";
 import i18n from "@/lang";
 
-interface Conversation {
-  id: number;
-  uuid: string;
-  name: string;
-  last_name: string;
-  image: string;
-  last_message: string;
-  last_message_date: string;
-  isRead: boolean;
-}
-
 const {active, conversation} = defineProps<{
   conversation: Conversation;
   active: boolean;
@@ -64,7 +53,6 @@ const {active, conversation} = defineProps<{
 const conversationRef = ref<HTMLElement | null>(null);
 
 const locale = computed(() => i18n.global.locale.value);
-
 
 const timeUpdateKey = ref(0);
 

@@ -3,24 +3,13 @@ import {onMounted, Ref, ref, watch} from "vue";
 import {useRoute} from "vue-router";
 import axios from "@/config/axios";
 
-interface Conversation {
-    id: number
-    uuid: string;
-    name: string,
-    last_name: string,
-    image: string,
-    last_message: string,
-    last_message_date: string,
-    isRead: boolean,
-}
-
 const useConversationsStore = defineStore('conversations', () => {
     const route = useRoute();
-    const conversations: Ref<Conversation[]> = ref([]);
+    const conversations = ref<Conversation[]>([]);
     const currentConversation = ref<Conversation | null>(null);
     const currentConversationUuid = ref<string | null>(null);
 
-    const fetchConversations = (setIsFetched: Function) => {
+    const fetchConversations = (setIsFetched: (value: boolean) => Ref<any>) => {
         // fetch conversations from API
         setIsFetched(false);
         axios
@@ -79,7 +68,8 @@ const useConversationsStore = defineStore('conversations', () => {
         conversations,
         currentConversation,
         setCurrentConversation,
-        fetchConversations,}
+        fetchConversations,
+    }
 })
 
 export default useConversationsStore;

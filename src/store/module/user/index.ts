@@ -6,7 +6,7 @@ import {useRouter} from "vue-router";
 const useUserStore = defineStore('user', () => {
     const router = useRouter();
 
-    const user = ref(null);
+    const user = ref<User | null>(null);
     const userIsLoggedIn = ref(!!localStorage.getItem('token'));
 
 

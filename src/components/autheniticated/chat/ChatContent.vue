@@ -1,16 +1,16 @@
 <template>
-  <div :key="messages" ref="chatContentRef"
-       class="w-full overflow-y-scroll !min-h-[calc(100vh-196px)] max-h-[calc(100vh-196px)]">
+  <div ref="chatContentRef"
+       class="w-full overflow-y-scroll !min-h-[calc(100vh-195px)] max-h-[calc(100vh-196px)]">
     <div class="w-full h-full">
-      <v-card class="!min-h-[calc(100vh-196px)] overflow-y-auto" rounded="0">
+      <v-card class="!min-h-[calc(100vh-195px)] overflow-y-auto" rounded="0">
 
         <div class="px-4 pt-2 pb-6">
           <ul class="flex flex-column gap-y-1 h-full">
             <v-container fluid class="py-0 flex flex-col w-full h-full px-0">
 
               <li
-                  v-for="message in messages"
-                  :key="message.id"
+                  v-for="(message, i) in messages"
+                  :key="i"
                   class="flex flex-col"
               >
 
@@ -23,13 +23,14 @@
                     <v-img
                         v-if="index === 0 && messageSender.sender_id !== userId"
                         class="rounded-full mr-auto !absolute left-0 top-1"
-                        src="https://via.placeholder.com/200x200.png/001133?text=error"
+                        :transition="false"
+                        :src="messageSender.sender.image"
                         alt="card"
                         width="40"
                         height="40"
                     />
 
-                    <v-tooltip :text="convertedDate(messageSender.created_at)">
+                    <v-tooltip open-delay="200" :text="convertedDate(messageSender.created_at)">
                       <template v-slot:activator="{ props: tooltip }">
 
                         <v-card
@@ -58,11 +59,12 @@
       </v-card>
     </div>
   </div>
+  {{}}
 </template>
 
 <script setup lang="ts">
 import axios from "@/config/axios";
-import {computed, onMounted, onUpdated, ref} from "vue";
+import {computed, onMounted, onUpdated, ref, watch} from "vue";
 import {useRoute} from "vue-router";
 import useMessagesStore from "@/store/module/messages";
 import useUserStore from "@/store/module/user";
@@ -78,11 +80,15 @@ const messages = computed(() => messagesStore.getCurrentMessages(uuid.value as s
 const chatContentRef = ref<HTMLElement | null>(null);
 
 const scrollToBottom = () => {
-  if (!chatContentRef.value) return;
-  chatContentRef.value.scrollTop = chatContentRef.value.scrollHeight;
+  setTimeout(() => {
+    if (!chatContentRef.value) return;
+    chatContentRef.value.scrollTop = chatContentRef.value.scrollHeight;
+  })
 }
 
 const getMessages = () => {
+
+  scrollToBottom(); // temp
 
   // only fetch messages if the conversation is not already in the store
   if (messagesStore.hasMessages(uuid.value as string)) return;
@@ -109,11 +115,12 @@ onMounted(() => {
           'GotMessage',
           (e: any) => {
             messagesStore.addMessage(uuid.value as string, e.message);
+            scrollToBottom();
           });
 });
 
 onUpdated(() => scrollToBottom());
-
+watch(route, () => getMessages());
 
 // const conversationsStore = useConversationsStore();
 // const currentConversation = computed(() => conversationsStore.currentConversation);

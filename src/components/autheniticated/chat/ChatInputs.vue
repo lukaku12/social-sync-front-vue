@@ -19,11 +19,11 @@
 </template>
 
 <script setup lang="ts">
-import AdditionalActions from "@/components/autheniticated/chat/input/AdditionalActions.vue";
-import FileInput from "@/components/autheniticated/chat/input/FileInput.vue";
-import StickerInput from "@/components/autheniticated/chat/input/StickerInput.vue";
-import GifInput from "@/components/autheniticated/chat/input/GifInput.vue";
-import TextInputWithEmojis from "@/components/autheniticated/chat/input/TextInputWithEmojis.vue";
+import AdditionalActions from "@/components/autheniticated/chat/inputs/AdditionalActions.vue";
+import FileInput from "@/components/autheniticated/chat/inputs/FileInput.vue";
+import StickerInput from "@/components/autheniticated/chat/inputs/StickerInput.vue";
+import GifInput from "@/components/autheniticated/chat/inputs/GifInput.vue";
+import TextInputWithEmojis from "@/components/autheniticated/chat/inputs/TextInputWithEmojis.vue";
 import {computed, ref} from "vue";
 import VButtonIcon from "@/components/layout/button/VButtonIcon.vue";
 import {useRoute} from "vue-router";
@@ -41,12 +41,14 @@ const messageStore = useMessagesStore();
 
 const submitForm = () => {
       messageStore.addMessage(uuid.value as string, {
-        id: null,
-        conversation_id: uuid.value,
-        sender_id: userStore?.user?.id,
+        id: 0,
+        conversation_id: uuid.value as string,
+        sender_id: userStore?.user?.id!,
         content: message.value,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
+        sender: userStore.user as User,
+        views: [],
       });
 
       axios
