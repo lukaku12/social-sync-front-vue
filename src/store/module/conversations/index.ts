@@ -9,9 +9,9 @@ const useConversationsStore = defineStore('conversations', () => {
     const currentConversation = ref<Conversation | null>(null);
     const currentConversationUuid = ref<string | null>(null);
 
-    const fetchConversations = (setIsFetched: (value: boolean) => Ref<any>) => {
+    const fetchConversations = (isFetched: Ref) => {
         // fetch conversations from API
-        setIsFetched(false);
+        isFetched.value = false;
         axios
             .get('conversations')
             .then(response => {
@@ -24,7 +24,7 @@ const useConversationsStore = defineStore('conversations', () => {
                 console.log(error.response);
             })
             .finally(() => {
-                setIsFetched(true);
+                isFetched.value = true;
             })
     }
 

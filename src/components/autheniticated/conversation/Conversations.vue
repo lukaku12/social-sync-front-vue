@@ -57,18 +57,17 @@ import Conversation from "@/components/autheniticated/conversation/Conversation.
 import {computed, onMounted, ref} from "vue";
 import useConversationStore from "@/store/module/conversations";
 import useRequestState from "@/composables/request-state";
-import useRef from "@/composables/hooks/useRef.ts";
 
 const conversationStore = useConversationStore();
 
-const [isFetched, setIsFetched] = useRef(false);
+const isFetched = ref(false);
 
 const conversations = computed(() => conversationStore.conversations);
 const currentConversation = computed(() => conversationStore.currentConversation);
 
 const requestState = computed(() => useRequestState(isFetched, conversations.value));
 
-onMounted(() => conversations.value.length === 0 && conversationStore.fetchConversations(setIsFetched));
+onMounted(() => conversations.value.length === 0 && conversationStore.fetchConversations(isFetched));
 
 const search = ref('');
 
